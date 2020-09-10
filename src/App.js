@@ -23,10 +23,6 @@ class App extends React.Component {
         });
   }
 
-  selected = (id) => {
-    this.setState({selectedGifId: id})
-  }
-
 
   render(){
 
@@ -37,7 +33,7 @@ class App extends React.Component {
     <div className="left-scene">
       <SearchBar search={this.search}/>
       <div className="selected-gif">
-        <Gif id={this.state.selectedGifId} selected={this.selected}/>
+        <Gif id={this.state.selectedGifId} />
       </div>
     </div>
 
