@@ -3,6 +3,7 @@ import './App.scss';
 import SearchBar from './components/SearchBar';
 import Gif from'./components/Gif';
 import GifList from './components/Gif_list';
+import giphy from 'giphy-api';
 
 class App extends React.Component {
 
@@ -11,22 +12,32 @@ class App extends React.Component {
     selectedGifId:"xT9IgDEI1iZyb2wqo8"
   }
 
+  // call the API
+  search = (query) =>{
+    giphy(process.env.API_URL).search({
+      q: query,
+      rating: 'g',
+      limit: 10
+    }, (err, res) => {
+         this.setState({gifs: res.data})
+        });
+  }
+
+  selected = (id) => {
+    this.setState({selectedGifId: id})
+  }
+
+
   render(){
 
-    const gifs = [
-      {id: 'xT9IgDEI1iZyb2wqo8'},
-      {id: 'xT9IgDEI1iZyb2wqo8'},
-      {id: 'xT9IgDEI1iZyb2wqo8'},
-      {id: 'xT9IgDEI1iZyb2wqo8'}
-    ]
-
     return (
+
     <div className="App">
 
     <div className="left-scene">
-      <SearchBar />
+      <SearchBar search={this.search}/>
       <div className="selected-gif">
-        <Gif id={this.state.selectedGifId}/>
+        <Gif id={this.state.selectedGifId} selected={this.selected}/>
       </div>
     </div>
 
